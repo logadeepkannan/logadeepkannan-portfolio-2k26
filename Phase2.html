@@ -1,0 +1,1312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Logadeep Kannan — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script>
+  // ── EMAILJS CONFIG ─────────────────────────────────────────────────────
+  // Replace these 3 values after setting up your EmailJS account (see below)
+  const EJS_PUBLIC_KEY  = 'JyelMYfVT0X1AM_BG';   // Account > API Keys
+  const EJS_SERVICE_ID  = 'service_6vlvirg';   // Email Services > Service ID
+  const EJS_TEMPLATE_ID = 'template_qhvyzuh';  // Email Templates > Template ID
+  // ───────────────────────────────────────────────────────────────────────
+  emailjs.init(EJS_PUBLIC_KEY);
+</script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #080b10;
+    --bg2: #0d1117;
+    --bg3: #131920;
+    --accent: #00f5a0;
+    --accent2: #00c8ff;
+    --text: #e8edf5;
+    --muted: #6b7a8d;
+    --border: rgba(255,255,255,0.06);
+    --card: rgba(255,255,255,0.03);
+    --glow: 0 0 40px rgba(0,245,160,0.15);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Mono', monospace;
+    cursor: none;
+    overflow-x: hidden;
+  }
+
+  /* CUSTOM CURSOR */
+  #cursor {
+    position: fixed; width: 12px; height: 12px;
+    background: var(--accent); border-radius: 50%;
+    pointer-events: none; z-index: 9999;
+    transform: translate(-50%,-50%);
+    transition: transform 0.1s, width 0.3s, height 0.3s, opacity 0.3s;
+    mix-blend-mode: difference;
+  }
+  #cursor-ring {
+    position: fixed; width: 36px; height: 36px;
+    border: 1px solid rgba(0,245,160,0.5); border-radius: 50%;
+    pointer-events: none; z-index: 9998;
+    transform: translate(-50%,-50%);
+    transition: transform 0.18s ease, width 0.3s, height 0.3s;
+  }
+  body:hover #cursor { opacity: 1; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 20px 60px;
+    background: rgba(8,11,16,0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    transition: padding 0.3s;
+  }
+  .nav-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800; font-size: 1.3rem;
+    color: var(--text); text-decoration: none;
+    letter-spacing: -0.5px;
+  }
+  .nav-logo span { color: var(--accent); }
+  .nav-links { display: flex; gap: 40px; list-style: none; }
+  .nav-links a {
+    color: var(--muted); text-decoration: none;
+    font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase;
+    transition: color 0.2s;
+    position: relative;
+  }
+  .nav-links a::after {
+    content: ''; position: absolute; bottom: -4px; left: 0;
+    width: 0; height: 1px; background: var(--accent);
+    transition: width 0.3s;
+  }
+  .nav-links a:hover { color: var(--text); }
+  .nav-links a:hover::after { width: 100%; }
+
+  /* HERO */
+  #home {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    padding: 0 60px;
+    position: relative; overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0; z-index: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 70% 50%, rgba(0,245,160,0.06) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 40% at 20% 80%, rgba(0,200,255,0.05) 0%, transparent 70%);
+  }
+  .hero-grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 80%);
+  }
+  .hero-content { position: relative; z-index: 1; max-width: 900px; }
+  .hero-tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(0,245,160,0.08); border: 1px solid rgba(0,245,160,0.2);
+    color: var(--accent); padding: 6px 14px; border-radius: 20px;
+    font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase;
+    margin-bottom: 28px;
+    opacity: 0; animation: fadeUp 0.8s 0.2s forwards;
+  }
+  .hero-tag::before { content: '●'; font-size: 0.5rem; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+  .hero-name {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(3.5rem, 8vw, 7rem);
+    font-weight: 800; line-height: 0.95;
+    letter-spacing: -3px;
+    color: var(--text);
+    margin-bottom: 24px;
+    opacity: 0; animation: fadeUp 0.9s 0.4s forwards;
+  }
+  .hero-name .line2 { color: transparent; -webkit-text-stroke: 1.5px rgba(255,255,255,0.3); }
+  .hero-tagline {
+    font-size: 1rem; color: var(--muted); line-height: 1.7;
+    max-width: 520px; margin-bottom: 48px;
+    opacity: 0; animation: fadeUp 0.9s 0.6s forwards;
+  }
+  .hero-tagline span { color: var(--accent2); }
+  .hero-cta {
+    display: flex; gap: 16px; flex-wrap: wrap;
+    opacity: 0; animation: fadeUp 0.9s 0.8s forwards;
+  }
+  .btn-primary {
+    background: var(--accent); color: #080b10;
+    padding: 14px 32px; border-radius: 4px;
+    font-family: 'Syne', sans-serif; font-weight: 700;
+    font-size: 0.85rem; letter-spacing: 1px; text-transform: uppercase;
+    text-decoration: none;
+    transition: all 0.25s;
+    box-shadow: 0 0 30px rgba(0,245,160,0.3);
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 50px rgba(0,245,160,0.5); }
+  .btn-outline {
+    border: 1px solid var(--border); color: var(--text);
+    padding: 14px 32px; border-radius: 4px;
+    font-family: 'Syne', sans-serif; font-weight: 600;
+    font-size: 0.85rem; letter-spacing: 1px; text-transform: uppercase;
+    text-decoration: none; transition: all 0.25s;
+  }
+  .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+
+  .hero-scroll {
+    position: absolute; bottom: 40px; left: 60px;
+    display: flex; align-items: center; gap: 12px;
+    color: var(--muted); font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase;
+    opacity: 0; animation: fadeUp 1s 1.2s forwards;
+  }
+  .scroll-line {
+    width: 40px; height: 1px; background: var(--muted);
+    position: relative; overflow: hidden;
+  }
+  .scroll-line::after {
+    content: ''; position: absolute; inset: 0;
+    background: var(--accent);
+    transform: translateX(-100%);
+    animation: scrollAnim 2s 1.5s infinite;
+  }
+  @keyframes scrollAnim { 0%{transform:translateX(-100%)} 100%{transform:translateX(100%)} }
+
+  .hero-counter {
+    position: absolute; right: 60px; top: 50%;
+    transform: translateY(-50%);
+    display: flex; flex-direction: column; gap: 32px; align-items: flex-end;
+    opacity: 0; animation: fadeLeft 1s 1s forwards;
+  }
+  .counter-item { text-align: right; }
+  .counter-num {
+    font-family: 'Syne', sans-serif; font-size: 2.2rem;
+    font-weight: 800; color: var(--text); line-height: 1;
+  }
+  .counter-num span { color: var(--accent); }
+  .counter-label { font-size: 0.65rem; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; }
+
+  @keyframes fadeUp { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:translateY(0)} }
+  @keyframes fadeLeft { from{opacity:0;transform:translate(30px,-50%)} to{opacity:1;transform:translate(0,-50%)} }
+
+  /* SECTIONS */
+  section { padding: 120px 60px; }
+  .section-label {
+    display: flex; align-items: center; gap: 16px;
+    color: var(--accent); font-size: 0.7rem;
+    letter-spacing: 4px; text-transform: uppercase; margin-bottom: 16px;
+  }
+  .section-label::before { content: '//'; color: var(--muted); }
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2.2rem, 5vw, 3.8rem);
+    font-weight: 800; letter-spacing: -2px;
+    line-height: 1; margin-bottom: 60px;
+    color: var(--text);
+  }
+  .section-title em { color: transparent; -webkit-text-stroke: 1px rgba(255,255,255,0.25); font-style: normal; }
+
+  /* ABOUT */
+  #about { background: var(--bg2); }
+  .about-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start;
+  }
+  .about-text p {
+    color: var(--muted); line-height: 1.9; font-size: 0.9rem; margin-bottom: 20px;
+  }
+  .about-text p strong { color: var(--text); }
+  .about-text p .highlight { color: var(--accent); }
+  .about-info { margin-top: 32px; display: flex; flex-direction: column; gap: 12px; }
+  .info-row {
+    display: flex; align-items: center; gap: 16px;
+    font-size: 0.8rem; color: var(--muted);
+    padding: 10px 0; border-bottom: 1px solid var(--border);
+  }
+  .info-row .label { color: var(--text); min-width: 80px; }
+  .info-row a { color: var(--accent2); text-decoration: none; }
+  .info-row a:hover { color: var(--accent); }
+
+  .about-visual {
+    display: flex; flex-direction: column; gap: 24px;
+  }
+  .about-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 8px; padding: 28px;
+    position: relative; overflow: hidden;
+    transition: border-color 0.3s, transform 0.3s;
+  }
+  .about-card:hover { border-color: rgba(0,245,160,0.3); transform: translateX(6px); }
+  .about-card::before {
+    content: ''; position: absolute; top: 0; left: 0;
+    width: 3px; height: 0; background: var(--accent);
+    transition: height 0.4s;
+  }
+  .about-card:hover::before { height: 100%; }
+  .card-num {
+    font-family: 'Syne', sans-serif; font-size: 2.5rem;
+    font-weight: 800; color: var(--accent); line-height: 1;
+  }
+  .card-num span { color: var(--accent); }
+  .card-desc { color: var(--muted); font-size: 0.78rem; margin-top: 6px; line-height: 1.5; }
+
+  /* SKILLS */
+  #skills { background: var(--bg); }
+  .skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+  .skill-category {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 8px; padding: 28px;
+    transition: border-color 0.3s, transform 0.3s;
+  }
+  .skill-category:hover { border-color: rgba(0,200,255,0.3); transform: translateY(-4px); }
+  .skill-cat-title {
+    font-family: 'Syne', sans-serif; font-weight: 700;
+    font-size: 0.8rem; color: var(--accent2);
+    letter-spacing: 2px; text-transform: uppercase;
+    margin-bottom: 20px; display: flex; align-items: center; gap: 8px;
+  }
+  .skill-cat-title::before { content: ''; width: 20px; height: 1px; background: var(--accent2); }
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+  .skill-tag {
+    background: rgba(255,255,255,0.04); border: 1px solid var(--border);
+    color: var(--muted); padding: 6px 14px; border-radius: 3px;
+    font-size: 0.72rem; letter-spacing: 1px;
+    transition: all 0.25s;
+  }
+  .skill-tag:hover { background: rgba(0,245,160,0.08); border-color: rgba(0,245,160,0.3); color: var(--accent); }
+
+  /* PROJECTS */
+  #projects { background: var(--bg2); }
+  .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 24px; }
+  .project-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 8px; padding: 36px; position: relative;
+    overflow: hidden; transition: all 0.35s;
+    display: flex; flex-direction: column;
+  }
+  .project-card::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(0,245,160,0.04) 0%, transparent 60%);
+    opacity: 0; transition: opacity 0.3s;
+  }
+  .project-card:hover { border-color: rgba(0,245,160,0.25); transform: translateY(-6px); box-shadow: 0 20px 60px rgba(0,0,0,0.4); }
+  .project-card:hover::after { opacity: 1; }
+  .project-num {
+    font-family: 'Syne', sans-serif; font-size: 0.7rem;
+    color: var(--muted); letter-spacing: 3px; margin-bottom: 16px;
+  }
+  .project-title {
+    font-family: 'Syne', sans-serif; font-size: 1.4rem;
+    font-weight: 700; color: var(--text); margin-bottom: 14px; line-height: 1.2;
+  }
+  .project-desc { color: var(--muted); font-size: 0.8rem; line-height: 1.8; margin-bottom: 24px; flex: 1; }
+  .project-stack { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 28px; }
+  .stack-tag {
+    background: rgba(0,200,255,0.06); border: 1px solid rgba(0,200,255,0.15);
+    color: var(--accent2); padding: 4px 10px; border-radius: 3px;
+    font-size: 0.65rem; letter-spacing: 1px;
+  }
+  .project-link {
+    display: inline-flex; align-items: center; gap: 8px;
+    color: var(--accent); text-decoration: none; font-size: 0.75rem;
+    letter-spacing: 1px; text-transform: uppercase;
+    transition: gap 0.2s;
+  }
+  .project-link:hover { gap: 14px; }
+  .project-link svg { transition: transform 0.2s; }
+  .project-link:hover svg { transform: translate(3px, -3px); }
+
+  /* EXPERIENCE */
+  #experience { background: var(--bg); }
+  .exp-list { display: flex; flex-direction: column; gap: 0; }
+  .exp-item {
+    display: grid; grid-template-columns: 180px 1fr;
+    gap: 40px; padding: 36px 0; border-bottom: 1px solid var(--border);
+    transition: padding-left 0.3s;
+  }
+  .exp-item:hover { padding-left: 16px; }
+  .exp-item:first-child { border-top: 1px solid var(--border); }
+  .exp-year { color: var(--muted); font-size: 0.75rem; padding-top: 4px; }
+  .exp-right {}
+  .exp-title {
+    font-family: 'Syne', sans-serif; font-size: 1.2rem;
+    font-weight: 700; color: var(--text); margin-bottom: 4px;
+  }
+  .exp-company { color: var(--accent); font-size: 0.8rem; margin-bottom: 12px; }
+  .exp-desc { color: var(--muted); font-size: 0.8rem; line-height: 1.8; }
+
+  /* CONTACT */
+  #contact {
+    background: var(--bg2);
+    text-align: center;
+    position: relative; overflow: hidden;
+  }
+  #contact .section-label { justify-content: center; }
+  .contact-glow {
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%,-50%);
+    width: 600px; height: 300px;
+    background: radial-gradient(ellipse, rgba(0,245,160,0.07) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .contact-email {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1.8rem, 4vw, 3.2rem);
+    font-weight: 800; color: var(--text);
+    text-decoration: none; letter-spacing: -1px;
+    transition: color 0.2s;
+    display: block; margin-bottom: 40px;
+  }
+  .contact-email:hover { color: var(--accent); }
+  .contact-links { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+  .contact-link {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--card); border: 1px solid var(--border);
+    color: var(--muted); padding: 12px 24px; border-radius: 4px;
+    text-decoration: none; font-size: 0.75rem;
+    letter-spacing: 1px; text-transform: uppercase;
+    transition: all 0.25s;
+  }
+  .contact-link:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+
+  /* FOOTER */
+  footer {
+    background: var(--bg);
+    padding: 32px 60px;
+    display: flex; align-items: center; justify-content: space-between;
+    border-top: 1px solid var(--border);
+    flex-wrap: wrap; gap: 16px;
+  }
+  footer .logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1rem; }
+  footer .logo span { color: var(--accent); }
+  footer p { color: var(--muted); font-size: 0.7rem; letter-spacing: 1px; }
+
+  /* REVEAL ANIMATIONS */
+  .reveal {
+    opacity: 0; transform: translateY(40px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+  .reveal-delay-4 { transition-delay: 0.4s; }
+
+  /* MOBILE */
+  @media (max-width: 768px) {
+    nav { padding: 16px 24px; }
+    .nav-links { display: none; }
+    section { padding: 80px 24px; }
+    #home { padding: 0 24px; }
+    .hero-counter { display: none; }
+    .hero-scroll { left: 24px; }
+    .about-grid { grid-template-columns: 1fr; gap: 48px; }
+    .projects-grid { grid-template-columns: 1fr; }
+    .exp-item { grid-template-columns: 1fr; gap: 8px; }
+    footer { padding: 24px; }
+    .hero-name { letter-spacing: -2px; }
+  }
+
+  /* SCROLLBAR */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 2px; }
+
+  /* SELECTION */
+  ::selection { background: rgba(0,245,160,0.2); color: var(--text); }
+
+  /* MOBILE NAV TOGGLE */
+  .nav-mobile-btn {
+    display: none; background: none; border: 1px solid var(--border);
+    color: var(--text); padding: 8px 12px; border-radius: 4px;
+    font-family: 'DM Mono', monospace; font-size: 0.7rem;
+    cursor: pointer;
+  }
+  @media (max-width: 768px) { .nav-mobile-btn { display: block; } }
+</style>
+</head>
+<body>
+
+<!-- Custom Cursor -->
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#home" class="nav-logo">LK<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <button class="nav-mobile-btn" onclick="toggleMenu()">Menu</button>
+</nav>
+
+<!-- HERO -->
+<section id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-tag">Available for work</div>
+    <h1 class="hero-name">
+      Logadeep<br>
+      <span class="line2">Kannan</span>
+    </h1>
+    <p class="hero-tagline">
+      Microsoft Power Platform Developer —<br>
+      <span>I build intelligent, low-code solutions</span> that automate business processes and drive digital transformation.
+    </p>
+    <div class="hero-cta">
+      <a href="#projects" class="btn-primary">View My Work</a>
+      <a href="#contact" class="btn-outline">Get in Touch</a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    Scroll to explore
+  </div>
+  <div class="hero-counter">
+    <div class="counter-item">
+      <div class="counter-num">02<span>+</span></div>
+      <div class="counter-label">Years Exp.</div>
+    </div>
+    <div class="counter-item">
+      <div class="counter-num">12<span>+</span></div>
+      <div class="counter-label">Projects</div>
+    </div>
+    <div class="counter-item">
+      <div class="counter-num">04<span>+</span></div>
+      <div class="counter-label">Clients</div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-label">About Me</div>
+  <h2 class="section-title reveal">Who I <em>Am</em></h2>
+  <div class="about-grid">
+    <div class="about-text reveal reveal-delay-1">
+      <p>I'm a <strong>Microsoft Power Platform Developer</strong> based in <strong>Chennai, Tamil Nadu, India</strong> with a passion for turning complex business challenges into elegant, automated solutions. My focus is on <span class="highlight">Power Apps, Power Automate, and Power BI</span> — building tools that actually move the needle.</p>
+      <p>With hands-on experience across enterprise environments, I've designed and delivered low-code applications, end-to-end workflow automations, and insightful dashboards that help teams work smarter — not harder.</p>
+      <p>When I'm not building on the Power Platform, I'm exploring Microsoft 365 integrations, learning about Copilot Studio, or figuring out how to automate the next repetitive process I encounter.</p>
+      <div class="about-info">
+        <div class="info-row"><span class="label">Location</span> Chennai, Tamil Nadu, India</div>
+        <div class="info-row"><span class="label">Email</span> <a href="mailto:logadeepkannan2024@gmail.com">logadeepkannan2024@gmail.com</a></div>
+        <!-- <div class="info-row"><span class="label">GitHub</span> <a href="https://github.com/yourhandle" target="_blank">github.com/yourhandle</a></div> -->
+        <div class="info-row"><span class="label">LinkedIn</span> <a href="https://linkedin.com/in/logadeep-kannan-5974131aa" target="_blank">linkedin.com/in/logadeep-kannan-5974131aa</a></div>
+      </div>
+    </div>
+    <div class="about-visual">
+      <div class="about-card reveal reveal-delay-2">
+        <div class="card-num">02<span>+</span></div>
+        <div class="card-desc">Years of professional experience delivering Power Platform solutions across enterprise environments</div>
+      </div>
+      <div class="about-card reveal reveal-delay-3">
+        <div class="card-num">15<span>+</span></div>
+        <div class="card-desc">Power Apps & Automate solutions deployed to streamline real business operations</div>
+      </div>
+      <div class="about-card reveal reveal-delay-4">
+        <div class="card-num">100<span>%</span></div>
+        <div class="card-desc">Committed to building scalable, maintainable, and adoption-friendly Power Platform solutions</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-label">Skills</div>
+  <h2 class="section-title reveal">What I <em>Work With</em></h2>
+  <div class="skills-grid">
+    <div class="skill-category reveal reveal-delay-1">
+      <div class="skill-cat-title">Power Platform</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Power Apps</span>
+        <span class="skill-tag">Power Automate</span>
+        <span class="skill-tag">Power BI</span>
+        <span class="skill-tag">Power Pages</span>
+        <span class="skill-tag">Copilot Studio</span>
+        <span class="skill-tag">Dataverse</span>
+      </div>
+    </div>
+    <div class="skill-category reveal reveal-delay-2">
+      <div class="skill-cat-title">Microsoft 365</div>
+      <div class="skill-tags">
+        <span class="skill-tag">SharePoint</span>
+        <span class="skill-tag">Teams</span>
+        <span class="skill-tag">Outlook</span>
+        <span class="skill-tag">Azure AD</span>
+        <span class="skill-tag">OneDrive</span>
+        <span class="skill-tag">Excel Online</span>
+      </div>
+    </div>
+    <div class="skill-category reveal reveal-delay-3">
+      <div class="skill-cat-title">Azure & Integrations</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Azure Logic Apps</span>
+        <span class="skill-tag">Azure Functions</span>
+        <span class="skill-tag">REST APIs</span>
+        <span class="skill-tag">Custom Connectors</span>
+        <span class="skill-tag">SQL Server</span>
+        <span class="skill-tag">Dynamics 365</span>
+      </div>
+    </div>
+    <div class="skill-category reveal reveal-delay-4">
+      <div class="skill-cat-title">Dev & Tools</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Power Fx</span>
+        <span class="skill-tag">JSON</span>
+        <span class="skill-tag">Git</span>
+        <span class="skill-tag">Azure DevOps</span>
+        <span class="skill-tag">Figma</span>
+        <span class="skill-tag">ALM / Solutions</span>
+      </div>
+    </div>
+    <div class="skill-category reveal reveal-delay-1">
+      <div class="skill-cat-title">Frontend Development</div>
+      <div class="skill-tags">
+        <span class="skill-tag">React</span>
+        <span class="skill-tag">TypeScript</span>
+        <span class="skill-tag">HTML5</span>
+        <span class="skill-tag">CSS3</span>
+        <span class="skill-tag">JavaScript</span>
+      </div>
+    </div>
+    <div class="skill-category reveal reveal-delay-2">
+      <div class="skill-cat-title">Backend Development</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Python</span>
+        <span class="skill-tag">MySQL</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<style>
+  /* PROJECT FILTER TABS */
+  .project-filters {
+    display: flex; flex-wrap: wrap; gap: 10px;
+    margin-bottom: 48px;
+  }
+  .filter-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--card); border: 1px solid var(--border);
+    color: var(--muted); padding: 10px 22px; border-radius: 4px;
+    font-family: 'DM Mono', monospace; font-size: 0.72rem;
+    letter-spacing: 1.5px; text-transform: uppercase;
+    cursor: pointer; transition: all 0.25s;
+    position: relative; overflow: hidden;
+  }
+  .filter-btn::before {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(0,245,160,0.06), transparent);
+    opacity: 0; transition: opacity 0.3s;
+  }
+  .filter-btn:hover { border-color: rgba(0,245,160,0.3); color: var(--text); }
+  .filter-btn:hover::before { opacity: 1; }
+  .filter-btn.active {
+    background: rgba(0,245,160,0.1);
+    border-color: var(--accent);
+    color: var(--accent);
+    box-shadow: 0 0 20px rgba(0,245,160,0.12);
+  }
+  .filter-btn.active::before { opacity: 1; }
+  .filter-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: currentColor; opacity: 0.6;
+  }
+  .filter-count {
+    font-size: 0.6rem; background: rgba(255,255,255,0.06);
+    border-radius: 10px; padding: 1px 7px;
+    color: var(--muted);
+  }
+  .filter-btn.active .filter-count { background: rgba(0,245,160,0.15); color: var(--accent); }
+
+  /* PROJECT CARDS */
+  .project-card {
+    transition: all 0.35s ease, opacity 0.3s ease, transform 0.3s ease;
+  }
+  .project-card.hidden {
+    display: none;
+  }
+  .project-card.fade-in {
+    animation: cardFadeIn 0.4s ease forwards;
+  }
+  @keyframes cardFadeIn {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* EMPTY STATE */
+  .projects-empty {
+    display: none; grid-column: 1 / -1;
+    text-align: center; padding: 60px 20px;
+    color: var(--muted); font-size: 0.8rem;
+    letter-spacing: 1px;
+  }
+  .projects-empty svg { margin-bottom: 16px; opacity: 0.3; }
+</style>
+
+<section id="projects">
+  <div class="section-label">Projects</div>
+  <h2 class="section-title reveal">Things I've <em>Built</em></h2>
+
+  <!-- FILTER TABS -->
+  <div class="project-filters reveal">
+    <button class="filter-btn active" onclick="filterProjects('all', this)">
+      <span class="filter-dot"></span> All <span class="filter-count">6</span>
+    </button>
+    <button class="filter-btn" onclick="filterProjects('enterprise', this)">
+      <span class="filter-dot"></span> Enterprise App <span class="filter-count">2</span>
+    </button>
+    <button class="filter-btn" onclick="filterProjects('intranet', this)">
+      <span class="filter-dot"></span> Intranet Site <span class="filter-count">1</span>
+    </button>
+    <button class="filter-btn" onclick="filterProjects('chatbot', this)">
+      <span class="filter-dot"></span> Chat Bot <span class="filter-count">1</span>
+    </button>
+    <button class="filter-btn" onclick="filterProjects('automation', this)">
+      <span class="filter-dot"></span> Automation <span class="filter-count">1</span>
+    </button>
+    <button class="filter-btn" onclick="filterProjects('spfx', this)">
+      <span class="filter-dot"></span> SPFx / Add-ins <span class="filter-count">1</span>
+    </button>
+  </div>
+
+  <!-- PROJECT CARDS -->
+  <div class="projects-grid" id="projectsGrid">
+
+    <!-- Enterprise App 1 -->
+    <div class="project-card reveal reveal-delay-1" data-category="enterprise">
+      <div class="project-num">01 / ENTERPRISE APP</div>
+      <div class="project-title">IT Help Desk Portal</div>
+      <p class="project-desc">End-to-end IT HelpDesk workflow built using Power Automate and SharePoint. Automated ticket creation, issue tracking, and approval processes—improving response time and reducing manual effort by 80%</p>
+      <div class="project-stack">
+        <span class="stack-tag">Power Automate</span>
+        <span class="stack-tag">SharePoint</span>
+        <span class="stack-tag">Teams</span>
+        <span class="stack-tag">Azure AD</span>
+      </div>
+      <!-- <a href="#" class="project-link">View Project
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 12L12 2M12 2H6M12 2V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </a> -->
+    </div>
+
+    <!-- Enterprise App 2 -->
+    <div class="project-card reveal reveal-delay-2" data-category="enterprise">
+      <div class="project-num">02 / ENTERPRISE APP</div>
+      <div class="project-title">Customer Relationship Management App</div>
+      <p class="project-desc">Canvas app built for managing customer relationships, tracking interactions, and handling business data efficiently. Integrated with SharePoint for data storage and Power Automate for workflow automation and notifications.</p>
+      <div class="project-stack">
+        <span class="stack-tag">Power Apps</span>
+        <span class="stack-tag">SharePoint</span>
+        <span class="stack-tag">Power BI</span>
+        <span class="stack-tag">Power Automate</span>
+        <span class="stack-tag">Excel Online</span>
+      </div>
+      <!-- <a href="#" class="project-link">View Project
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 12L12 2M12 2H6M12 2V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </a> -->
+    </div>
+
+    <!-- Intranet Site -->
+    <div class="project-card reveal reveal-delay-3" data-category="intranet">
+      <div class="project-num">03 / INTRANET SITE</div>
+      <div class="project-title">Corporate Intranet site</div>
+      <p class="project-desc">Modern SharePoint Online intranet built with custom branding, department news hubs, quick links, and employee directory. Increased internal engagement by 45% within the first quarter of launch.</p>
+      <div class="project-stack">
+        <span class="stack-tag">SharePoint Online</span>
+        <span class="stack-tag">Teams</span>
+        <span class="stack-tag">Azure AD</span>
+      </div>
+      <!-- <a href="#" class="project-link">View Project
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 12L12 2M12 2H6M12 2V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </a> -->
+    </div>
+
+    <!-- Chat Bot -->
+    <div class="project-card reveal reveal-delay-4" data-category="chatbot">
+      <div class="project-num">04 / CHAT BOT</div>
+      <div class="project-title">AskHub Chatbot</div>
+      <p class="project-desc">Our AI-powered Copilot chatbot, built using Copilot Studio and integrated with Microsoft Teams and SharePoint, is designed to provide instant, accurate answers by leveraging content across the entire intranet ecosystem—including all associated subsites.</p>
+      <div class="project-stack">
+        <span class="stack-tag">Copilot Studio</span>
+        <span class="stack-tag">Teams</span>
+        <span class="stack-tag">SharePoint Online</span>
+        <!-- <span class="stack-tag">Dataverse</span> -->
+      </div>
+      <!-- <a href="#" class="project-link">View Project
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 12L12 2M12 2H6M12 2V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </a> -->
+    </div>
+
+    <!-- Automation -->
+    <div class="project-card reveal reveal-delay-1" data-category="automation">
+      <div class="project-num">05 / AUTOMATION</div>
+      <div class="project-title">Employee Daily Timelog Automation</div>
+      <p class="project-desc">End-to-end workflow for automating employee daily timelog submissions, built on Power Automate and SharePoint. Automated IT provisioning, document collection, and manager approvals — reducing administrative burden by 60%.</p>
+      <div class="project-stack">
+        <span class="stack-tag">Power Automate</span>
+        <span class="stack-tag">SharePoint Online</span>
+        <span class="stack-tag">Excel Online</span>
+        <span class="stack-tag">Azure AD</span>
+      </div>
+      <!-- <a href="#" class="project-link">View Project
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 12L12 2M12 2H6M12 2V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </a> -->
+    </div>
+
+    <!-- SPFx / Add-ins -->
+    <div class="project-card reveal reveal-delay-2" data-category="spfx">
+      <div class="project-num">06 / SPFX & ADD-INS</div>
+      <div class="project-title">Custom SharePoint Web Part</div>
+      <p class="project-desc">Built a React-based SPFx web part for an organization-wide announcement board with rich text, scheduling, and audience targeting. Deployed via App Catalog across 3,000+ users with zero downtime.</p>
+      <div class="project-stack">
+        <span class="stack-tag">SPFx</span>
+        <span class="stack-tag">React</span>
+        <span class="stack-tag">TypeScript</span>
+        <span class="stack-tag">SharePoint Online</span>
+      </div>
+      <!-- <a href="#" class="project-link">View Project
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 12L12 2M12 2H6M12 2V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </a> -->
+    </div>
+
+    <!-- Empty state -->
+    <div class="projects-empty" id="projectsEmpty">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <p>No projects in this category yet.</p>
+    </div>
+
+  </div>
+</section>
+
+<script>
+  function filterProjects(category, btn) {
+    // Update active button
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    const cards = document.querySelectorAll('.project-card[data-category]');
+    const empty = document.getElementById('projectsEmpty');
+    let visible = 0;
+
+    cards.forEach(card => {
+      const match = category === 'all' || card.dataset.category === category;
+      if (match) {
+        card.classList.remove('hidden');
+        card.classList.add('fade-in');
+        setTimeout(() => card.classList.remove('fade-in'), 400);
+        visible++;
+      } else {
+        card.classList.add('hidden');
+      }
+    });
+
+    empty.style.display = visible === 0 ? 'block' : 'none';
+  }
+</script>
+
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-label">Experience</div>
+  <h2 class="section-title reveal">Where I've <em>Worked</em></h2>
+  <div class="exp-list">
+    <div class="exp-item reveal reveal-delay-1">
+      <div class="exp-year">2024 — Present</div>
+      <div class="exp-right">
+        <div class="exp-title">Microsoft 365 Developer</div>
+        <div class="exp-company">ItTrident Solutions</div>
+        <div class="exp-desc">
+          Designed and deployed 20+ Canvas Apps and model-driven apps on Dataverse, serving 500+ daily active users across operations, HR, and finance departments. Architected complex multi-stage Power Automate workflows integrating Dynamics 365 CRM, SharePoint, and third-party REST APIs — reducing manual processing time by over 65%. Built and published interactive Power BI dashboards with row-level security and custom DAX measures, consumed weekly by C-level stakeholders for strategic decision-making. Led solution architecture reviews, enforced ALM best practices using Azure DevOps pipelines for environment-based deployments, and mentored two junior developers on Power Fx and Dataverse data modelling.
+        </div>
+      </div>
+    </div>
+    <div class="exp-item reveal reveal-delay-2">
+      <div class="exp-year">2023 — 2024</div>
+      <div class="exp-right">
+        <div class="exp-title">Freelance Frontend Developer</div>
+        <div class="exp-company">Self-Employed / Remote Clients</div>
+        <div class="exp-desc">
+          Worked independently with 8+ clients across e-commerce, healthcare, and SaaS industries — designing and building responsive web interfaces using React, TypeScript, and CSS3. Translated Figma mockups into pixel-perfect, accessible UIs, integrated RESTful APIs for dynamic data rendering, and optimised frontend performance achieving sub-2s load times. Managed full project lifecycle from scoping and client communication to delivery and post-launch support, consistently receiving 5-star feedback for code quality and on-time delivery.
+        </div>
+      </div>
+    </div>
+    <div class="exp-item reveal reveal-delay-3">
+      <div class="exp-year">2022 — 2024</div>
+      <div class="exp-right">
+        <div class="exp-title">Freelance Graphic Designer</div>
+        <div class="exp-company">Self-Employed / Remote Clients</div>
+        <div class="exp-desc">
+          Delivered creative design solutions for 15+ clients across social media, branding, and marketing industries — specialising in Canva-based design systems, brand kits, and content templates. Produced high-impact social media graphics, pitch decks, posters, and promotional materials that elevated client brand identity. Developed reusable Canva template libraries adopted by small businesses to maintain visual consistency across platforms, reducing their content creation time by 50%. Managed end-to-end client briefs from concept and moodboarding through to final delivery, building a strong reputation for clean, modern aesthetics and fast turnaround.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT STYLES -->
+<style>
+  #contact { background: var(--bg2); padding: 120px 60px; }
+  .contact-glow {
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%,-50%);
+    width: 700px; height: 400px;
+    background: radial-gradient(ellipse, rgba(0,245,160,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .contact-wrap {
+    max-width: 1300px; margin: 0 auto;
+    position: relative; z-index: 1;
+  }
+
+  /* TOP HEADER */
+  .contact-header { margin-bottom: 60px; text-align: center; }
+  .contact-header .section-label { margin-bottom: 16px; justify-content: center; }
+  .contact-header .section-title { margin-bottom: 20px; }
+  .contact-intro {
+    color: var(--muted); font-size: 0.88rem; line-height: 1.9;
+    max-width: 560px; margin: 0 auto;
+  }
+
+  /* BOTTOM TWO COLUMNS */
+  .contact-columns {
+    display: grid; grid-template-columns: 1fr 2fr;
+    gap: 60px; align-items: start;
+  }
+
+  /* LEFT INFO PANEL */
+  .contact-info { }
+  .contact-detail-list { display: flex; flex-direction: column; gap: 0; margin-bottom: 40px; }
+  .contact-detail {
+    display: flex; align-items: center; gap: 16px;
+    padding: 16px 0; border-bottom: 1px solid var(--border);
+    transition: padding-left 0.3s;
+  }
+  .contact-detail:hover { padding-left: 8px; }
+  .contact-detail-icon {
+    width: 36px; height: 36px; border-radius: 6px;
+    background: rgba(0,245,160,0.06); border: 1px solid rgba(0,245,160,0.15);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .contact-detail-icon svg { color: var(--accent); }
+  .contact-detail-text { }
+  .contact-detail-label { font-size: 0.62rem; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 2px; }
+  .contact-detail-value { font-size: 0.8rem; color: var(--text); }
+  .contact-detail-value a { color: var(--text); text-decoration: none; transition: color 0.2s; }
+  .contact-detail-value a:hover { color: var(--accent); }
+  .contact-socials { display: flex; gap: 12px; }
+  .social-btn {
+    width: 40px; height: 40px; border-radius: 6px;
+    background: var(--card); border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--muted); text-decoration: none;
+    transition: all 0.25s;
+  }
+  .social-btn:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-3px); }
+
+  /* RIGHT FORM PANEL */
+  .contact-form-wrap {
+    background: rgba(255,255,255,0.02);
+    border: 1px solid var(--border);
+    border-radius: 12px; padding: 64px;
+    position: relative; overflow: hidden;
+  }
+  .contact-form-wrap::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--accent), var(--accent2), transparent);
+  }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .form-group { display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px; }
+  .form-group.full { grid-column: 1 / -1; }
+  .form-label {
+    font-size: 0.7rem; color: var(--muted);
+    letter-spacing: 2px; text-transform: uppercase;
+  }
+  .form-input, .form-textarea, .form-select {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border);
+    border-radius: 6px; padding: 16px 20px;
+    color: var(--text); font-family: 'DM Mono', monospace;
+    font-size: 0.9rem; width: 100%;
+    transition: border-color 0.25s, box-shadow 0.25s, background 0.25s;
+    outline: none; appearance: none;
+  }
+  .form-input::placeholder, .form-textarea::placeholder { color: rgba(107,122,141,0.5); }
+  .form-input:focus, .form-textarea:focus, .form-select:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(0,245,160,0.08);
+    background: rgba(0,245,160,0.03);
+  }
+  .form-input:hover, .form-textarea:hover, .form-select:hover {
+    border-color: rgba(255,255,255,0.15);
+  }
+  .form-textarea { resize: vertical; min-height: 160px; line-height: 1.7; }
+  .form-select { cursor: pointer; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M2 4l4 4 4-4' stroke='%236b7a8d' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 18px center; padding-right: 44px; }
+  .form-select option { background: #0d1117; color: var(--text); }
+
+  /* CHAR COUNTER */
+  .form-footer-row { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+  .char-count { font-size: 0.65rem; color: var(--muted); }
+  .char-count span { color: var(--accent2); }
+
+  /* SUBMIT BUTTON */
+  .btn-submit {
+    background: var(--accent); color: #080b10;
+    padding: 15px 36px; border-radius: 6px; border: none;
+    font-family: 'Syne', sans-serif; font-weight: 700;
+    font-size: 0.85rem; letter-spacing: 1px; text-transform: uppercase;
+    cursor: pointer; display: inline-flex; align-items: center; gap: 10px;
+    transition: all 0.25s;
+    box-shadow: 0 0 30px rgba(0,245,160,0.25);
+    position: relative; overflow: hidden;
+  }
+  .btn-submit::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.1) 50%, transparent 100%);
+    transform: translateX(-100%); transition: transform 0.5s;
+  }
+  .btn-submit:hover { transform: translateY(-2px); box-shadow: 0 0 50px rgba(0,245,160,0.45); }
+  .btn-submit:hover::after { transform: translateX(100%); }
+  .btn-submit:active { transform: translateY(0); }
+  .btn-submit svg { transition: transform 0.25s; }
+  .btn-submit:hover svg { transform: translate(3px,-2px); }
+
+  /* SUCCESS STATE */
+  .form-success {
+    display: none; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center; padding: 48px 24px; gap: 16px;
+  }
+  .success-icon {
+    width: 64px; height: 64px; border-radius: 50%;
+    background: rgba(0,245,160,0.1); border: 1px solid rgba(0,245,160,0.3);
+    display: flex; align-items: center; justify-content: center;
+    animation: scaleIn 0.4s cubic-bezier(0.34,1.56,0.64,1);
+  }
+  @keyframes scaleIn { from{transform:scale(0)} to{transform:scale(1)} }
+  .success-title { font-family: 'Syne', sans-serif; font-size: 1.3rem; font-weight: 700; color: var(--text); }
+  .success-sub { color: var(--muted); font-size: 0.8rem; line-height: 1.7; }
+
+  /* FIELD ERROR */
+  .field-error { font-size: 0.65rem; color: #ff6b6b; letter-spacing: 1px; display: none; }
+  .form-group.has-error .form-input,
+  .form-group.has-error .form-textarea,
+  .form-group.has-error .form-select { border-color: rgba(255,107,107,0.5); }
+  .form-group.has-error .field-error { display: block; }
+
+  @media (max-width: 900px) {
+    .contact-columns { grid-template-columns: 1fr; gap: 40px; }
+    .contact-form-wrap { padding: 32px 24px; }
+    .form-row { grid-template-columns: 1fr; }
+  }
+</style>
+
+<!-- CONTACT -->
+<section id="contact" style="position:relative;">
+  <div class="contact-glow"></div>
+  <div class="contact-wrap">
+
+    <!-- TOP: Header -->
+    <div class="contact-header reveal">
+      <div class="section-label" style="justify-content:center;">Contact</div>
+      <h2 class="section-title" style="margin-bottom:20px;">Let's <em>Work Together</em></h2>
+      <p class="contact-intro">Have a Power Platform project, automation challenge, or just want to connect? Drop me a message — I usually respond within 24 hours.</p>
+    </div>
+
+    <!-- BOTTOM: Two columns -->
+    <div class="contact-columns">
+
+    <!-- LEFT: Info -->
+    <div class="contact-info reveal reveal-delay-1">
+      <div class="contact-detail-list">
+        <div class="contact-detail">
+          <div class="contact-detail-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>
+            </svg>
+          </div>
+          <div class="contact-detail-text">
+            <div class="contact-detail-label">Email</div>
+            <div class="contact-detail-value"><a href="mailto:logadeep@email.com">logadeepkannan2024@gmail.com</a></div>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-detail-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/>
+            </svg>
+          </div>
+          <div class="contact-detail-text">
+            <div class="contact-detail-label">Location</div>
+            <div class="contact-detail-value">Chennai, Tamil Nadu, India</div>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-detail-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+              <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+            </svg>
+          </div>
+          <div class="contact-detail-text">
+            <div class="contact-detail-label">Response Time</div>
+            <div class="contact-detail-value">Within 24 hours</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-socials">
+        <a href="https://github.com/yourhandle" target="_blank" class="social-btn" title="GitHub">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+          </svg>
+        </a>
+        <a href="https://linkedin.com/in/yourhandle" target="_blank" class="social-btn" title="LinkedIn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+          </svg>
+        </a>
+        <a href="#" class="social-btn" title="Resume">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+            <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- RIGHT: Form -->
+    <div class="contact-form-wrap reveal reveal-delay-2">
+      <!-- FORM VIEW -->
+      <div id="contactFormInner">
+        <div class="form-row">
+          <div class="form-group" id="grp-name">
+            <label class="form-label" for="cf-name">Your Name</label>
+            <input class="form-input" id="cf-name" type="text" placeholder="John Doe" autocomplete="off"/>
+            <span class="field-error">Please enter your name.</span>
+          </div>
+          <div class="form-group" id="grp-email">
+            <label class="form-label" for="cf-email">Email Address</label>
+            <input class="form-input" id="cf-email" type="email" placeholder="john@company.com"/>
+            <span class="field-error">Enter a valid email address.</span>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group" id="grp-company">
+            <label class="form-label" for="cf-company">Company <span style="color:var(--muted);font-size:0.6rem;">(optional)</span></label>
+            <input class="form-input" id="cf-company" type="text" placeholder="Acme Corp"/>
+          </div>
+          <div class="form-group" id="grp-service">
+            <label class="form-label" for="cf-service">I Need Help With</label>
+            <select class="form-select" id="cf-service">
+              <option value="" disabled selected>Select a service...</option>
+              <option value="powerapp">Power Apps Development</option>
+              <option value="automate">Power Automate / Flows</option>
+              <option value="pbi">Power BI Dashboard</option>
+              <option value="copilot">Copilot Studio Bot</option>
+              <option value="sharepoint">SharePoint / M365</option>
+              <option value="other">Something Else</option>
+            </select>
+            <span class="field-error">Please select a service.</span>
+          </div>
+        </div>
+
+        <div class="form-group full" id="grp-msg">
+          <label class="form-label" for="cf-msg">Your Message</label>
+          <textarea class="form-textarea" id="cf-msg" placeholder="Tell me about your project, challenge, or idea..." maxlength="500" oninput="updateCount(this)"></textarea>
+          <span class="field-error">Please enter a message.</span>
+        </div>
+
+        <div class="form-footer-row">
+          <span class="char-count"><span id="charNum">0</span> / 500</span>
+          <button class="btn-submit" onclick="submitForm()">
+            Send Message
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+              <path d="M2 12L12 2M12 2H6M12 2V8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- SUCCESS VIEW -->
+      <div class="form-success" id="formSuccess">
+        <div class="success-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#00f5a0" stroke-width="2" stroke-linecap="round">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+        </div>
+        <div class="success-title">Message Sent!</div>
+        <p class="success-sub">Thanks for reaching out, I'll get back to you within 24 hours.</p>
+        <button onclick="resetForm()" style="margin-top:8px;background:none;border:1px solid var(--border);color:var(--muted);padding:10px 24px;border-radius:4px;font-family:'DM Mono',monospace;font-size:0.72rem;cursor:pointer;letter-spacing:1px;transition:all 0.2s;" onmouseover="this.style.borderColor='var(--accent)';this.style.color='var(--accent)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">
+          Send Another
+        </button>
+      </div>
+    </div><!-- end contact-form-wrap -->
+
+    </div><!-- end contact-columns -->
+  </div><!-- end contact-wrap -->
+</section>
+
+<script>
+  function updateCount(el) {
+    document.getElementById('charNum').textContent = el.value.length;
+  }
+
+  function validateEmail(e) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e);
+  }
+
+  function submitForm() {
+    let valid = true;
+
+    const name    = document.getElementById('cf-name');
+    const email   = document.getElementById('cf-email');
+    const company = document.getElementById('cf-company');
+    const service = document.getElementById('cf-service');
+    const msg     = document.getElementById('cf-msg');
+
+    const grpName    = document.getElementById('grp-name');
+    const grpEmail   = document.getElementById('grp-email');
+    const grpService = document.getElementById('grp-service');
+    const grpMsg     = document.getElementById('grp-msg');
+
+    grpName.classList.remove('has-error');
+    grpEmail.classList.remove('has-error');
+    grpService.classList.remove('has-error');
+    grpMsg.classList.remove('has-error');
+
+    if (!name.value.trim())              { grpName.classList.add('has-error');    valid = false; }
+    if (!validateEmail(email.value.trim())) { grpEmail.classList.add('has-error'); valid = false; }
+    if (!service.value)                  { grpService.classList.add('has-error'); valid = false; }
+    if (!msg.value.trim())               { grpMsg.classList.add('has-error');     valid = false; }
+
+    if (!valid) return;
+
+    const btn = document.querySelector('.btn-submit');
+    btn.innerHTML = 'Sending... <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10" opacity=".25"/><path d="M12 2a10 10 0 0 1 10 10"><animateTransform attributeName="transform" type="rotate" from="0 12 12" to="360 12 12" dur="0.8s" repeatCount="indefinite"/></path></svg>';
+    btn.style.opacity = '0.75';
+    btn.disabled = true;
+
+    const serviceOptions = {
+      'powerapp':   'Power Apps Development',
+      'automate':   'Power Automate / Flows',
+      'pbi':        'Power BI Dashboard',
+      'copilot':    'Copilot Studio Bot',
+      'sharepoint': 'SharePoint / M365',
+      'other':      'Something Else'
+    };
+
+    const templateParams = {
+      from_name:    name.value.trim(),
+      from_email:   email.value.trim(),
+      company:      company.value.trim() || 'Not provided',
+      service:      serviceOptions[service.value] || service.value,
+      message:      msg.value.trim(),
+      to_email:     'logadeepkannan2024@gmail.com'
+    };
+
+    emailjs.send(EJS_SERVICE_ID, EJS_TEMPLATE_ID, templateParams)
+      .then(() => {
+        document.getElementById('contactFormInner').style.display = 'none';
+        const s = document.getElementById('formSuccess');
+        s.style.display = 'flex';
+      })
+      .catch((err) => {
+        console.error('EmailJS error:', err);
+        btn.innerHTML = 'Send Message <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 12L12 2M12 2H6M12 2V8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>';
+        btn.style.opacity = '1';
+        btn.disabled = false;
+        // Show inline error
+        let errEl = document.getElementById('form-send-error');
+        if (!errEl) {
+          errEl = document.createElement('p');
+          errEl.id = 'form-send-error';
+          errEl.style.cssText = 'color:#ff6b6b;font-size:0.72rem;text-align:center;margin-top:12px;letter-spacing:1px;';
+          document.querySelector('.form-footer-row').after(errEl);
+        }
+        errEl.textContent = '⚠ Failed to send. Please check your EmailJS config or email directly.';
+      });
+  }
+
+  function resetForm() {
+    document.getElementById('cf-name').value = '';
+    document.getElementById('cf-email').value = '';
+    document.getElementById('cf-company').value = '';
+    document.getElementById('cf-service').value = '';
+    document.getElementById('cf-msg').value = '';
+    document.getElementById('charNum').textContent = '0';
+    const btn = document.querySelector('.btn-submit');
+    btn.textContent = ''; btn.disabled = false; btn.style.opacity = '1';
+    btn.innerHTML = 'Send Message <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 12L12 2M12 2H6M12 2V8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>';
+    document.getElementById('formSuccess').style.display = 'none';
+    document.getElementById('contactFormInner').style.display = 'block';
+  }
+</script>
+
+<!-- FOOTER -->
+<footer>
+  <div class="logo">LK<span>.</span></div>
+  <p>© 2025 Logadeep Kannan. Designed & built with care.</p>
+  <p style="color:var(--muted);font-size:0.65rem;letter-spacing:2px;">CHENNAI, INDIA</p>
+</footer>
+
+<script>
+  // Custom cursor
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursor-ring');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; cursor.style.left = mx+'px'; cursor.style.top = my+'px'; });
+  function animateRing() {
+    rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12;
+    ring.style.left = rx+'px'; ring.style.top = ry+'px';
+    requestAnimationFrame(animateRing);
+  }
+  animateRing();
+  document.querySelectorAll('a,button,.project-card,.about-card,.skill-category').forEach(el => {
+    el.addEventListener('mouseenter', () => { cursor.style.width='20px'; cursor.style.height='20px'; ring.style.width='56px'; ring.style.height='56px'; });
+    el.addEventListener('mouseleave', () => { cursor.style.width='12px'; cursor.style.height='12px'; ring.style.width='36px'; ring.style.height='36px'; });
+  });
+
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting) { e.target.classList.add('visible'); } });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+
+  // Mobile menu
+  function toggleMenu() {
+    const links = document.querySelector('.nav-links');
+    if (links.style.display === 'flex') {
+      links.style.display = 'none';
+    } else {
+      links.style.cssText = 'display:flex;flex-direction:column;position:fixed;top:70px;right:24px;background:#0d1117;border:1px solid rgba(255,255,255,0.06);padding:24px;border-radius:8px;gap:20px;z-index:200;';
+    }
+  }
+
+  // Close mobile menu on link click
+  document.querySelectorAll('.nav-links a').forEach(a => {
+    a.addEventListener('click', () => {
+      const links = document.querySelector('.nav-links');
+      if (window.innerWidth <= 768) links.style.display = 'none';
+    });
+  });
+</script>
+</body>
+</html>
