@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Cursor from './components/Cursor';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import Chatbot from './components/Chatbot';
 import Home from './pages/Home';
 import Blogs from './pages/Blogs';
 
@@ -15,6 +16,7 @@ export default function App() {
         <Route path="/blogs" element={<Blogs />} />
       </Routes>
       <Footer />
+      <Chatbot />
     </BrowserRouter>
   );
 }
