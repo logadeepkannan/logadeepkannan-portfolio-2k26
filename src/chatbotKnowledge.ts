@@ -69,6 +69,16 @@ export const INTENTS: ChatIntent[] = [
     suggestions: ['Show me your projects', 'Where have you worked?'],
   },
   {
+    id: 'certifications',
+    patterns: [
+      'certification', 'certifications', 'certified', 'credential', 'credentials', 'pl-900', 'pl 900',
+      'badge', 'badges', 'microsoft certified',
+    ],
+    response:
+      "I'm Microsoft Certified: Power Platform Fundamentals (PL-900), earned in 2026, and I also hold the Copilot Studio Agent Academy — Recruit badge from Microsoft (2026). You can see both in the Certifications section of this page.",
+    suggestions: ['What are your skills?', 'Where have you worked?'],
+  },
+  {
     id: 'experience',
     patterns: [
       'experience', 'work history', 'where have you worked', 'career', 'job', 'jobs', 'employer',
